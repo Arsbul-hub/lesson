@@ -1,52 +1,24 @@
-from panda3d.core import *
-from direct.showbase.ShowBase import ShowBase
-from direct.task import Task
+# ооп - объектно ориентированное программирвание
 
 
-class Game(ShowBase):
-    def __init__(self):
-        ShowBase.__init__(self)
+class App:
+    run_time = "20:00"  # атрибут
+    a = 5  # атрибут
+    b = 10  # атрибут
+    c = None
 
-        # Загружаем модель блока
-        self.block = self.loader.loadModel("models/box")
-        self.block.reparentTo(self.render)
+    def run_program(self):  # метод (функция)
+        print("Программа запущена!")
+        print(self.run_time)
+        self.calculate_c()
+        print(self.c)
 
-        # Создаем сетку блоков
-        self.grid = [[None] * 10 for _ in range(10)]
-        for i in range(10):
-            for j in range(10):
-                block_instance = self.block.copyTo(self.render)
-                block_instance.setPos(i, j, 0)
-                self.grid[i][j] = block_instance
-
-        # Загружаем модель игрока
-        self.player = self.loader.loadModel("models/box")
-        self.player.reparentTo(self.render)
-
-        # Устанавливаем начальные координаты игрока
-        self.player_pos = [0, 0]
-        self.player.setPos(self.player_pos[0], self.player_pos[1], 0)
-
-        # Устанавливаем обработчики клавиш
-        self.accept("arrow_up", self.move_player, [0, 1])
-        self.accept("arrow_down", self.move_player, [0, -1])
-        self.accept("arrow_left", self.move_player, [-1, 0])
-        self.accept("arrow_right", self.move_player, [1, 0])
-
-        # Запускаем цикл обновления игры
-        self.taskMgr.add(self.update, "update")
-
-    def move_player(self, dx, dy):
-        new_x = self.player_pos[0] + dx
-        new_y = self.player_pos[1] + dy
-        if 0 <= new_x < 10 and 0 <= new_y < 10:
-            self.player_pos = [new_x, new_y]
-            self.player.setPos(self.player_pos[0], self.player_pos[1], 0)
-
-    def update(self, task):
-        # Обновление игры
-        return Task.cont
+    def calculate_c(self):
+        self.c = (self.a ** 2 + self.b ** 2) ** 0.5
 
 
-game = Game()
-game.run()
+if __name__ == "__main__":  # если этот файл является главным
+    app = App()
+
+    # app.calculate_c()
+    app.run_program()
