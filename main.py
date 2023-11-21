@@ -1,17 +1,25 @@
-class Car:
+class Car:  # родительский класс
     mass = 1  # масса
     max_speed = 100  # максимальная скорость
     current_speed = 0  # текущая скорость
     a = 10  # ускорение
 
+    def __init__(self):  # работает при создании класса (при его инициализации)
+        print("Класс инициализирован")
+
     def gas(self):
         self.current_speed += self.a
 
 
-class Bus(Car):
+class Bus(Car):  # дочерний класс
     mass = 4  # масса
     max_speed = 40  # максимальная скорость
     doors_count = 6  # количество дверей
+
+    def __init__(self, a):
+        super().gas()  # super() - класс, позволяющий получить доступ к родительскому классу
+        self.a = a
+        print(a)
 
     def gas(self):
         self.current_speed += 40
@@ -20,12 +28,14 @@ class Bus(Car):
         self.current_speed = 0
 
 
-city_bus_1 = Bus()
-car_1 = Car()
-
-while True:
-    print(city_bus_1.current_speed)
-    city_bus_1.gas()
-    print(city_bus_1.current_speed)
-    if city_bus_1.current_speed == 1000:
-        city_bus_1.stop()
+#
+city_bus_1 = Bus(1000)
+print(city_bus_1.current_speed)
+# car_1 = Car()
+#
+# while True:
+#     print(city_bus_1.current_speed)
+#     city_bus_1.gas()
+#     print(city_bus_1.current_speed)
+#     if city_bus_1.current_speed == 1000:
+#         city_bus_1.stop()
